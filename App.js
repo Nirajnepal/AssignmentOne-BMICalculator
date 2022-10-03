@@ -57,7 +57,112 @@ export default function App() {
 
 
   return (
-    <Text>console.log(callBMI(45,5.4))</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>BMI Calculator</Text>
+
+      <View style={[{ maxheight: 500, width: "100%" }]}>
+        <Text style={styles.text}>Height</Text>
+
+        <View style={[styles.inpV, { flexDirection: "row" }]}>
+          <TextInput
+            style={[styles.inpo, { flex: 1 }]}
+            placeholder={heightUnit}
+            keyboardType="numeric"
+            onChangeText={(text) => {
+              setheight(parseFloat(text));
+            }}>
+          </TextInput>
+          <Picker style={[styles.selector, { width: 50 }]} selectedValue={heightUnit}
+            onValueChange={(itemValue, itemIndex) => setheightUnit(itemValue)}>
+            <Picker.Item label="cm" value="cm" />
+            <Picker.Item label="Feet.Inch" value="Feet.Inch" />
+          </Picker>
+        </View>
+        <Text style={styles.text}>Weight</Text>
+        <View style={[styles.inpV, { flexDirection: "row" }]}>
+          <TextInput
+            keyboardType="numeric"
+            style={[styles.inpo, { flex: 1 }]}
+            placeholder={weightUnit}
+            onChangeText={(text) => {
+              setweight(parseFloat(text));
+            }}
+          ></TextInput>
+          <Picker style={[styles.selector, { width: 50 }]} selectedValue={weightUnit}
+            onValueChange={(itemValue, itemIndx) => setweightUnit(itemValue)}>
+            <Picker.Item label="Kg" value="Kg" />
+            <Picker.Item label="Lbs" value="Lbs" />
+          </Picker>
+        </View>
+
+      </View>
+      <View style={[{ width: "100%", flexDirection: "row", alignContent: "center", justifyContent: "center" }]}>
+        <TouchableOpacity
+          style={[styles.submi, styles.shadow]}
+          onPress={() => {
+            setbmi("BMI = " + measurementChange(weight, weightUnit, height, heightUnit));
+          }}
+          title="Submit"
+        ><Text style={styles.text}>Submit</Text></TouchableOpacity></View>
+      <Text style={styles.text2}>{bmi}</Text>
+    </View>
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingTop: Constants.statusBarheight,
+    backgroundColor: '#22A7F0',
+    padding: 8,
+  },
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 5.84,
+    elevation: 10,
+  },
+  submi: {
+    borderRadius: 50,
+    backgroundColor: "#000000",
+    padding: 2,
+    borderWidth: 2,
+    width: 100,
+    alignItems: "center",
+    alignItems: "center",
+    alignItems: "center",
+    alignContent: "center",
+    justifyContent: "center"
+  },
+  inpV: {
+    borderBottomWidth: 2,
+    borderColor: "#999",
+    marginHorizontal: 15,
+    marginBottom: 25,
+    paddingHorizontal: 8
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 30,
+    top: 0,
+    marginVertical: 20,
+    textAlign: "center",
+  },
+  text: {
+    textAlign: "center",
+    fontSize: 18,
+    lineHeight: 35,
+  },
+  text2: {
+    textAlign: "center",
+    fontSize: 22,
+    fontWeight: "bold",
+    marginTop: 15,
+    lineHeight: 35,
+  },
+});
